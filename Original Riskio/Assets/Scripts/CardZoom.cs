@@ -16,12 +16,13 @@ public class CardZoom : MonoBehaviour
 
     public void OnHoverEnter()
     {
-        zoomCard = Instantiate(gameObject, new Vector2(-8.22f, -1.6f), Quaternion.identity);
+        zoomCard = Instantiate(gameObject, new Vector2(110, 160), Quaternion.identity);
         zoomCard.transform.SetParent(Canvas.transform, false);
         zoomCard.layer = LayerMask.NameToLayer("Zoom");
 
         print(zoomCard.layer);
 
+        /*
         UnityEngine.EventSystems.EventTrigger zoom_script = zoomCard.GetComponent<UnityEngine.EventSystems.EventTrigger>();
         Destroy(zoom_script);
 
@@ -32,9 +33,9 @@ public class CardZoom : MonoBehaviour
         Destroy(rigidbody);
 
 
+        */
         RectTransform rect = zoomCard.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(3.5667f, 5.9096f);
-
+        rect.sizeDelta = new Vector2(200, 300);
     }
 
     public void OnHoverExit()

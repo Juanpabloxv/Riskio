@@ -10,7 +10,7 @@ public class CardDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<SpriteRenderer>().sprite = card.artwork;
+        gameObject.GetComponent<Image>().sprite  = card.artwork;
 
     }
 

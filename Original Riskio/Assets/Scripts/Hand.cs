@@ -13,23 +13,6 @@ public class Hand : MonoBehaviour
 
     public List<GameObject> showable_list = new List<GameObject>();
 
-
-    // Start is called before the first frame update
-    /*
-    void Start()
-    {
-
-        var defense_deck = ScriptableObject.FindObjectsOfType<Card>();
-        foreach(var defense in defense_deck)
-        {
-            GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
-            card_hand.Add(playerCard);
-        }
-
-
-
-    }
-    */
     private void Update()
     {
         foreach (var card in showable_list)

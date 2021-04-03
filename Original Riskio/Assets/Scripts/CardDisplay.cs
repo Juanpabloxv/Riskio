@@ -14,5 +14,11 @@ public class CardDisplay : MonoBehaviour
 
     }
 
+    public void CopyValuesFrom(CardDisplay input)
+    {
+        card = input.card;
+        gameObject.GetComponent<Image>().sprite = card.artwork;
+    }
+
 
 }

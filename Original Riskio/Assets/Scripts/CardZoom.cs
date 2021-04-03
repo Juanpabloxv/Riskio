@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 
 public class CardZoom : MonoBehaviour
 {
 
     public GameObject Canvas;
+    public GameObject CardZoomed;
     private GameObject zoomCard;
+    public PlayerManager PlayerManager;
 
     public void Awake()
     {
@@ -16,24 +19,14 @@ public class CardZoom : MonoBehaviour
 
     public void OnHoverEnter()
     {
-        zoomCard = Instantiate(gameObject, new Vector2(110, 160), Quaternion.identity);
+        //NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        //PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+        zoomCard = Instantiate(CardZoomed, new Vector2(-419.01f, 53), Quaternion.identity);
+        zoomCard.GetComponent<CardDisplay>().CopyValuesFrom(gameObject.GetComponent<CardDisplay>());
         zoomCard.transform.SetParent(Canvas.transform, false);
-        zoomCard.layer = LayerMask.NameToLayer("Zoom");
+        //zoomCard.layer = LayerMask.NameToLayer("Zoom");
 
-        print(zoomCard.layer);
-
-        /*
-        UnityEngine.EventSystems.EventTrigger zoom_script = zoomCard.GetComponent<UnityEngine.EventSystems.EventTrigger>();
-        Destroy(zoom_script);
-
-        BoxCollider2D colider = zoomCard.GetComponent<BoxCollider2D>();
-        Destroy(colider);
-
-        Rigidbody2D rigidbody = zoomCard.GetComponent<Rigidbody2D>();
-        Destroy(rigidbody);
-
-
-        */
+ 
         RectTransform rect = zoomCard.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(200, 300);
     }

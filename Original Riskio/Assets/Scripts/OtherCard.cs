@@ -25,6 +25,7 @@ public class OtherCard : MonoBehaviour
 
     public void onClickNext()
     {
+        PlayerArea = GameObject.Find("PlayerArea");
         var card_list = PlayerArea.GetComponent<Hand>().showable_list;
         var last_number = card_list.Count - 1;
         var last_card = card_list[last_number];
@@ -38,6 +39,7 @@ public class OtherCard : MonoBehaviour
                     GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
                     playerCard.GetComponent<CardDisplay>().card = card;
                     PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
+                    playerCard.transform.SetParent(PlayerArea.transform, false);
                     Destroy(PlayerArea.GetComponent<Hand>().showable_list[0]);
                     PlayerArea.GetComponent<Hand>().showable_list.RemoveAt(0);
                     break;
@@ -57,6 +59,7 @@ public class OtherCard : MonoBehaviour
                 GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
                 playerCard.GetComponent<CardDisplay>().card = selected_card;
                 PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
+                playerCard.transform.SetParent(PlayerArea.transform, false);
                 Destroy(PlayerArea.GetComponent<Hand>().showable_list[0]);
                 PlayerArea.GetComponent<Hand>().showable_list.RemoveAt(0);
             }
@@ -110,15 +113,6 @@ public class OtherCard : MonoBehaviour
             }
         }
 
-        /*
-        var aux_list = PlayerArea.GetComponent<Hand>().showable_list;
-        foreach (Transform child in PlayerArea.transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-
-        PlayerArea.GetComponent<Hand>().showable_list = aux_list;
-    */
         }
 
 

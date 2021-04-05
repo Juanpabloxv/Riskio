@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Spoofing
   card_type: Spoofing
   description: 
-  number: 0
+  number: 11
   artwork: {fileID: 21300000, guid: bd84e3b552457d0479834f11dc7d1100, type: 3}

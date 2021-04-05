@@ -8,10 +8,9 @@ public class CardDisplay : MonoBehaviour
     public Card card;
 
     // Start is called before the first frame update
-    void Start()
+    public void pasteSprite ()
     {
         gameObject.GetComponent<Image>().sprite  = card.artwork;
-
     }
 
     public void CopyValuesFrom(CardDisplay input)

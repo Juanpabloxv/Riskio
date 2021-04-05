@@ -21,14 +21,14 @@ public class CardZoom : MonoBehaviour
     {
         //NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         //PlayerManager = networkIdentity.GetComponent<PlayerManager>();
-        zoomCard = Instantiate(CardZoomed, new Vector2(-419.01f, 53), Quaternion.identity);
+        zoomCard = Instantiate(CardZoomed, new Vector2(-291, -7), Quaternion.identity);
         zoomCard.GetComponent<CardDisplay>().CopyValuesFrom(gameObject.GetComponent<CardDisplay>());
         zoomCard.transform.SetParent(Canvas.transform, false);
         //zoomCard.layer = LayerMask.NameToLayer("Zoom");
 
  
         RectTransform rect = zoomCard.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(200, 300);
+        rect.sizeDelta = new Vector2(166.72f, 287.83f);
     }
 
     public void OnHoverExit()

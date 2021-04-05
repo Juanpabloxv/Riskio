@@ -6,17 +6,15 @@ using Mirror;
 public class DrawCard : NetworkBehaviour
 {
 
-
     public GameObject Card1;
     public GameObject Card2;
     public GameObject PlayerArea;
     public GameObject MainCanvas;
-    public GameObject EnemyArea;
+    public PlayerManager PlayerManager;
     public CardList hand;
 
-    public List<GameObject> hand_cards = new List<GameObject>();
+    //public List<GameObject> hand_cards = new List<GameObject>();
 
-    public PlayerManager PlayerManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +27,8 @@ public class DrawCard : NetworkBehaviour
 
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         PlayerManager = networkIdentity.GetComponent<PlayerManager>();
-        PlayerArea = PlayerManager.GetComponent<PlayerManager>().PlayerArea;
-        for (var i = 0; i < 6; i++)
-        {
-            GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
-            playerCard.GetComponent<CardDisplay>().card = hand.card_hand[i];
-            playerCard.transform.SetParent(PlayerArea.transform, false);
-            PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
-        }
-
+        PlayerManager.DrawCard();
+        Destroy(gameObject);
     }
 
     

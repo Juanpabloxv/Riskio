@@ -7,14 +7,18 @@ public class PlayerManager : NetworkBehaviour
 {
 
 
-    public GameObject Card1;
-    public GameObject Card2;
     public GameObject PlayerArea;
     public GameObject MainCanvas;
-    public GameObject EnemyArea;
+    public GameObject BoardArea;
+    public GameObject playedCardPrefab;
+    public GameObject playedCard;
     public CardList hand;
+    public CardList information_hand;
+    public GameObject Card;
+    public bool isAttacker = false;
+    public bool hasPlayed = false;
+    public bool isGM = false;
 
-    public List<GameObject> hand_cards = new List<GameObject>();
 
 
     // Start is called before the first frame update
@@ -24,52 +28,100 @@ public class PlayerManager : NetworkBehaviour
         base.OnStartClient();
         PlayerArea = GameObject.Find("PlayerArea");
         MainCanvas = GameObject.Find("Main Canvas");
-        /*
-        for (var i = 0; i < 6; i++)
-        {
-            GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
-            playerCard.GetComponent<CardDisplay>().card = hand.card_hand[i];
-            PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
-        }
-        */
+        BoardArea = GameObject.Find("BoardArea");
 
     }
-    
+
 
     [Server]
     public override void OnStartServer()
     {
         base.OnStartServer();
+        //isGM = true;
     }
 
 
-    [Command]
-    public void CmdDeaLCards()
+
+    public void DrawCard()
     {
-        for (var i = 0; i < 6; i++)
+        if (hasAuthority)
         {
-            GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
-            NetworkServer.Spawn(playerCard, connectionToClient);
-            print(hand.card_hand[i]);
-            playerCard.GetComponent<CardDisplay>().card = hand.card_hand[i];
-            PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
+            CmdDrawCard();
         }
+    }
+
+    [Command]
+    public void CmdDrawCard()
+    {
+        for (var i = 0; i < 13; i++)
+        {
+            GameObject playerCard = Instantiate(Card, new Vector3(0, 0, 0), Quaternion.identity);
+            NetworkServer.Spawn(playerCard, connectionToClient);
+            RpcDrawCard(playerCard, i);
+            
+        }
+    }
+
+    [ClientRpc]
+    public void RpcDrawCard(GameObject playerCard, int position)
+    {
+        //if (!isGM)
+        //{
+            playerCard.GetComponent<CardDisplay>().card = hand.card_hand[position];
+            playerCard.GetComponent<CardDisplay>().pasteSprite();
+            playerCard.transform.SetParent(PlayerArea.transform, false);
+            PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
+            PlayerArea.GetComponent<Hand>().update_list();
+        /*} else
+        {
+            playerCard.GetComponent<CardDisplay>().card = information_hand.card_hand[position];
+            playerCard.GetComponent<CardDisplay>().pasteSprite();
+            playerCard.transform.SetParent(PlayerArea.transform, false);
+            PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
+            PlayerArea.GetComponent<Hand>().update_list();
+        }
+        */
+
+    }
+
+
+    public void PlayCard(GameObject card)
+    {
+        if (!hasPlayed && !isAttacker && !isGM)
+        {
+            CmdPlayCard(card);
+        }
+    }
+
+    [Command]
+    public void CmdPlayCard(GameObject card)
+    {
+        GameObject played_card = Instantiate(playedCardPrefab, new Vector2(0, 0), Quaternion.identity);
+        NetworkServer.Spawn(played_card, connectionToClient);
+        var i = 0;
+        foreach(var hand_card in hand.card_hand)
+        {
+            print(hand_card.number);
+            if(hand_card.number == card.GetComponent<CardDisplay>().card.number)
+            {
+                RpcPlayCard(played_card, i);
+                break;
+            }
+            i++;
+        }
+       
     }
 
 
     [ClientRpc]
-    public void RpcShowCard(GameObject card, string type)
+    public void RpcPlayCard(GameObject played_card, int position)
     {
-        if (type == "Hand")
-        {
-            if (hasAuthority)
-            {
-                card.transform.SetParent(PlayerArea.transform, false);
-            }
-        }
-
+        //played_card.GetComponent<CardDisplay>().CopyValuesFrom(card.GetComponent<CardDisplay>());
+        played_card.GetComponent<CardDisplay>().card = hand.card_hand[position];
+        played_card.GetComponent<CardDisplay>().pasteSprite();
+        played_card.transform.SetParent(BoardArea.transform, false);  //.SetParent(MainCanvas.transform, false);
+        hasPlayed = true;
     }
-
 
 
     // Update is called once per frame

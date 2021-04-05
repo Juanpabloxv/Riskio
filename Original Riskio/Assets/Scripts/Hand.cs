@@ -3,26 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class Hand : NetworkBehaviour
+public class Hand : MonoBehaviour
 {
-    /*
-    private List<GameObject> card_hand = new List<GameObject>();
-    public GameObject PlayerArea;
-    public GameObject Card1;
-    private ScriptableObject Defense_1;
-    */
-
-    public PlayerManager PlayerManager;
 
     public List<GameObject> showable_list = new List<GameObject>();
 
-    private void Update()
+    public void update_list()
     {
-        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-        PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+        //NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        //PlayerManager = networkIdentity.GetComponent<PlayerManager>();
         foreach (var card in showable_list)
         {
-            card.transform.SetParent(PlayerManager.GetComponent<PlayerManager>().PlayerArea.transform, false);
+            card.transform.SetParent(gameObject.transform, false);
         }
     }
 }

@@ -38,10 +38,12 @@ public class OtherCard : MonoBehaviour
                 {
                     GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
                     playerCard.GetComponent<CardDisplay>().card = card;
+                    playerCard.GetComponent<CardDisplay>().pasteSprite();
                     PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
                     playerCard.transform.SetParent(PlayerArea.transform, false);
                     Destroy(PlayerArea.GetComponent<Hand>().showable_list[0]);
                     PlayerArea.GetComponent<Hand>().showable_list.RemoveAt(0);
+                    PlayerArea.GetComponent<Hand>().update_list();
                     break;
                 }
             }
@@ -58,10 +60,12 @@ public class OtherCard : MonoBehaviour
             if (selected_card) {
                 GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
                 playerCard.GetComponent<CardDisplay>().card = selected_card;
+                playerCard.GetComponent<CardDisplay>().pasteSprite();
                 PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
                 playerCard.transform.SetParent(PlayerArea.transform, false);
                 Destroy(PlayerArea.GetComponent<Hand>().showable_list[0]);
                 PlayerArea.GetComponent<Hand>().showable_list.RemoveAt(0);
+                PlayerArea.GetComponent<Hand>().update_list();
             }
         }
 
@@ -80,12 +84,14 @@ public class OtherCard : MonoBehaviour
                 {
                     GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
                     playerCard.GetComponent<CardDisplay>().card = card;
+                    playerCard.GetComponent<CardDisplay>().pasteSprite();
                     Destroy(PlayerArea.GetComponent<Hand>().showable_list[5]);
                     PlayerArea.GetComponent<Hand>().showable_list.RemoveAt(5);
                     PlayerArea.GetComponent<Hand>().showable_list.Insert(0, playerCard);
                     playerCard.transform.SetParent(PlayerArea.transform, false);
                     playerCard.transform.SetSiblingIndex(0);
                     PlayerArea.GetComponent<Hand>().showable_list[0].transform.SetSiblingIndex(0);
+                    PlayerArea.GetComponent<Hand>().update_list();
                     break;
 
                 }
@@ -105,11 +111,13 @@ public class OtherCard : MonoBehaviour
             {
                 GameObject playerCard = Instantiate(Card1, new Vector3(0, 0, 0), Quaternion.identity);
                 playerCard.GetComponent<CardDisplay>().card = selected_card;
+                playerCard.GetComponent<CardDisplay>().pasteSprite();
                 Destroy(PlayerArea.GetComponent<Hand>().showable_list[5]);
                 PlayerArea.GetComponent<Hand>().showable_list.RemoveAt(5);
                 playerCard.transform.SetParent(PlayerArea.transform, false);
                 playerCard.transform.SetSiblingIndex(0);
                 PlayerArea.GetComponent<Hand>().showable_list.Insert(0, playerCard);
+                PlayerArea.GetComponent<Hand>().update_list();
             }
         }
 

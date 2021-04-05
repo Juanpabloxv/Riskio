@@ -10,6 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77e5f17d7fa34644eb12a979d2debbf9, type: 3}
-  m_Name: Spoofing_hand
+  m_Name: Spoofing_Hand
   m_EditorClassIdentifier: 
-  card_hand: []
+  card_hand:
+  - {fileID: 11400000, guid: fe7bdfa50a8f91643ae6cc1ee7df64b1, type: 2}
+  - {fileID: 11400000, guid: dfe7408095bce7c459b1cb75c3f2a407, type: 2}
+  - {fileID: 11400000, guid: b84ef4011c5b7d149aedde26c3a24594, type: 2}
+  - {fileID: 11400000, guid: be0d796893643504cb0aca78c277f8cd, type: 2}
+  - {fileID: 11400000, guid: 93742a85e8f41cd48aee1c98a14230fa, type: 2}
+  - {fileID: 11400000, guid: d195d34b1880df743b16cdc507de4bc6, type: 2}
+  - {fileID: 11400000, guid: 36480d512d7632c48936611498cdd7e0, type: 2}
+  - {fileID: 11400000, guid: d0519c7bba358424b8a98577a7347eab, type: 2}
+  - {fileID: 11400000, guid: 6367929cbe8828a45938cf82ab60ff17, type: 2}
+  - {fileID: 11400000, guid: 7d281e02ebf92e1439fe74407ba812cc, type: 2}
+  - {fileID: 11400000, guid: ec50333755f2f1640a2ba33c664b86fd, type: 2}
+  - {fileID: 11400000, guid: 0883489c68ac36049bf15cb85582cff4, type: 2}
+  - {fileID: 11400000, guid: 4c6f3a6bd3655cb4898dcd826d6c3330, type: 2}

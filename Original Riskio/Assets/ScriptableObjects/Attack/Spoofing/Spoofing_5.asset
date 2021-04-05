@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 999b55c856150a641b62b78ff058a874, type: 3}
-  m_Name: New Card 11
+  m_Name: Spoofing_5
   m_EditorClassIdentifier: 
-  name: 
-  card_type: 
+  name: Spoofing
+  card_type: Spoofing
   description: 
   number: 0
-  artwork: {fileID: 0}
+  artwork: {fileID: 21300000, guid: 171a729ad0528c244aea883c7b644c06, type: 3}

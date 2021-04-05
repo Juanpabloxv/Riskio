@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 999b55c856150a641b62b78ff058a874, type: 3}
-  m_Name: New Card 6
+  m_Name: Tampering_10
   m_EditorClassIdentifier: 
-  name: 
-  card_type: 
+  name: Tampering
+  card_type: Tampering
   description: 
-  number: 0
-  artwork: {fileID: 0}
+  number: 8
+  artwork: {fileID: 21300000, guid: 857673db57e916a41b0b80f4a622c3bf, type: 3}

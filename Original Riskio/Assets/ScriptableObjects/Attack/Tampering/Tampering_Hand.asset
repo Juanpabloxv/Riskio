@@ -10,6 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77e5f17d7fa34644eb12a979d2debbf9, type: 3}
-  m_Name: New Hand
+  m_Name: Tampering_Hand
   m_EditorClassIdentifier: 
-  card_hand: []
+  card_hand:
+  - {fileID: 11400000, guid: 7d6f8b1575cc0624f862be8632755409, type: 2}
+  - {fileID: 11400000, guid: 6b777c1002dc3ca4fa9ffda3a0165746, type: 2}
+  - {fileID: 11400000, guid: 9ccb984f32651c74da3611c928e98b29, type: 2}
+  - {fileID: 11400000, guid: a2715e6b557291541af168cc0d072229, type: 2}
+  - {fileID: 11400000, guid: fc3b6737118d94b41a09a45b661cac1d, type: 2}
+  - {fileID: 11400000, guid: fd67d525b3e49394e9bd0a2e27162285, type: 2}
+  - {fileID: 11400000, guid: 1b908e300ca66e64aafd79abcece8283, type: 2}
+  - {fileID: 11400000, guid: 3f9c6e97018adb141a4e668fb015c437, type: 2}
+  - {fileID: 11400000, guid: a14a23ec0759c6148b8a171a2cd6e5a8, type: 2}
+  - {fileID: 11400000, guid: c8463e662d7f3584db8ecc13aaa6a635, type: 2}
+  - {fileID: 11400000, guid: 7868d8241096f0b46b7ff2cd47dd8609, type: 2}
+  - {fileID: 11400000, guid: f2fbffd4751518740b938a1fe103b493, type: 2}
+  - {fileID: 11400000, guid: 3c99f7b3dea66ef4399dd4cba4bf1ac2, type: 2}

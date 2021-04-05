@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+
+public enum TurnState { START, ATTACK, INFORMATION, DEFENSE, SCORE }
+
 public class PlayerManager : NetworkBehaviour
 {
 
@@ -18,17 +21,19 @@ public class PlayerManager : NetworkBehaviour
     public bool isAttacker = false;
     public bool hasPlayed = false;
     public bool isGM = false;
+    public static TurnState state;
 
 
 
     // Start is called before the first frame update
-    
+
     public override void OnStartClient()
     {
         base.OnStartClient();
         PlayerArea = GameObject.Find("PlayerArea");
         MainCanvas = GameObject.Find("Main Canvas");
         BoardArea = GameObject.Find("BoardArea");
+        state = TurnState.START;
 
     }
 
@@ -37,6 +42,8 @@ public class PlayerManager : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
+
+        //var numPlayers = Network
         //isGM = true;
     }
 

@@ -56,6 +56,7 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void  getPlayers(GameObject selectPlayerCanvas)
     {
+        //GameObject[] players = FindObjectsOfType(NetworkClient);
         var ids = NetworkServer.connections.Values;
         var str = "Estos son los ids de los clientes: \n";
         foreach(var id in ids)
@@ -201,6 +202,12 @@ public class PlayerManager : NetworkBehaviour
 
     public void SelectAttacker(int clientId)
     {
+        CmdSelectAttacker(clientId);
+    }
+
+    [Command]
+    public void CmdSelectAttacker(int clientId)
+    {
         RpcSelectAttacker(clientId);
     }
 
@@ -212,14 +219,15 @@ public class PlayerManager : NetworkBehaviour
         print(NetworkConnection.LocalConnectionId);
         print(clientId);
 
-        if(NetworkConnection.LocalConnectionId == clientId)
+        //if(NetworkConnection.LocalConnectionId == clientId)
+        if(!isGM)
         {
             print("hi");
-            Player.GetComponent<PlayerManager>().isAttacker = true;
+            isAttacker = true;
         } else
         {
             print("hi2");
-            Player.GetComponent<PlayerManager>().isAttacker = false;
+            isAttacker = false;
         }
     }
 

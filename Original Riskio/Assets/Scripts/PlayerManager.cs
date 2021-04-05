@@ -21,7 +21,7 @@ public class PlayerManager : NetworkBehaviour
     public bool isAttacker = false;
     public bool hasPlayed = false;
     public bool isGM = false;
-    public static TurnState state;
+    [SyncVar]  public TurnState state;
 
 
 
@@ -34,6 +34,10 @@ public class PlayerManager : NetworkBehaviour
         MainCanvas = GameObject.Find("Main Canvas");
         BoardArea = GameObject.Find("BoardArea");
         state = TurnState.START;
+        if (isServer)
+        {
+            isGM = true;
+        }
 
     }
 
@@ -44,7 +48,7 @@ public class PlayerManager : NetworkBehaviour
         base.OnStartServer();
 
         //var numPlayers = Network
-        isGM = true;
+        
     }
 
 
@@ -95,7 +99,7 @@ public class PlayerManager : NetworkBehaviour
 
     public void PlayCard(GameObject card)
     {
-        if (!hasPlayed && !isAttacker && !isGM)
+        if (!hasPlayed && !isAttacker && !isGM && state == TurnState.DEFENSE)
         {
             CmdPlayCard(card);
         }
@@ -138,6 +142,30 @@ public class PlayerManager : NetworkBehaviour
         
     }
 
+    public void ChangeTurnState(string new_state)
+    {
+        if(new_state == "attack")
+        {
+            CmdChangeTurnState(TurnState.ATTACK, new_state);
+        } else if (new_state == "defense")
+        {
+            CmdChangeTurnState(TurnState.DEFENSE, new_state);
+        } else
+        {
+            CmdChangeTurnState(TurnState.INFORMATION, new_state);
+        }
+    }
 
+    [Command]
+    public void CmdChangeTurnState(TurnState new_state, string str_state)
+    {
+        PlayerManager[] Players = FindObjectsOfType<PlayerManager>();
+        foreach (var player in Players)
+        {
+            player.state = new_state;
+        }
+        GameObject state_text = GameObject.Find("StateText");
+        state_text.GetComponent<UnityEngine.UI.Text>().text = str_state;
+    }
 
 }

@@ -57,7 +57,6 @@ public class GameTimer : NetworkBehaviour
                 }
             }
         }
-        print(timer);
         gameObject.GetComponent<UnityEngine.UI.Text>().text = timer.ToString();
     }
 

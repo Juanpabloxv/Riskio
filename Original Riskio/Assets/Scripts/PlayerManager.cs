@@ -44,7 +44,7 @@ public class PlayerManager : NetworkBehaviour
         base.OnStartServer();
 
         //var numPlayers = Network
-        //isGM = true;
+        isGM = true;
     }
 
 
@@ -68,6 +68,7 @@ public class PlayerManager : NetworkBehaviour
             
         }
     }
+
 
     [ClientRpc]
     public void RpcDrawCard(GameObject playerCard, int position)

@@ -27,8 +27,11 @@ public class DrawCard : NetworkBehaviour
 
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         PlayerManager = networkIdentity.GetComponent<PlayerManager>();
-        PlayerManager.DrawCard();
-        Destroy(gameObject);
+        if (PlayerManager.isGM)
+        {
+            PlayerManager.DrawCard();
+            Destroy(gameObject);
+        }
     }
 
     

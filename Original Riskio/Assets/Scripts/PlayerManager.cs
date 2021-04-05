@@ -18,10 +18,11 @@ public class PlayerManager : NetworkBehaviour
     public CardList hand;
     public CardList information_hand;
     public GameObject Card;
-    public bool isAttacker = false;
+    [SyncVar]  public bool isAttacker = false;
     public bool hasPlayed = false;
     public bool isGM = false;
     [SyncVar]  public TurnState state;
+    public GameObject[] Players;
 
 
 
@@ -34,10 +35,36 @@ public class PlayerManager : NetworkBehaviour
         MainCanvas = GameObject.Find("Main Canvas");
         BoardArea = GameObject.Find("BoardArea");
         state = TurnState.START;
+        GameObject selectAttacker = GameObject.Find("AttackerSelection");
+        selectAttacker.GetComponent<Canvas>().enabled = false;
         if (isServer)
         {
             isGM = true;
         }
+            
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        /*if (isServer)
+        {
+            getPlayers();
+        }*/
+    }
+
+    [Server]
+    public void  getPlayers(GameObject selectPlayerCanvas)
+    {
+        var ids = NetworkServer.connections.Values;
+        var str = "Estos son los ids de los clientes: \n";
+        foreach(var id in ids)
+        {
+            str += "- " + id.ToString() + "\n";
+        }
+
+        GameObject attackerIds = GameObject.Find("PlayerIdsText");
+        attackerIds.GetComponent<UnityEngine.UI.Text>().text = str ;
 
     }
 
@@ -136,17 +163,20 @@ public class PlayerManager : NetworkBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     public void ChangeTurnState(string new_state)
     {
         if(new_state == "attack")
         {
             CmdChangeTurnState(TurnState.ATTACK, new_state);
+            if (isServer)
+            {
+                GameObject selectAttacker = GameObject.Find("AttackerSelection");
+                selectAttacker.GetComponent<Canvas>().enabled = true;
+                getPlayers(selectAttacker);
+            }
+
         } else if (new_state == "defense")
         {
             CmdChangeTurnState(TurnState.DEFENSE, new_state);
@@ -159,13 +189,38 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdChangeTurnState(TurnState new_state, string str_state)
     {
+        GameObject state_text = GameObject.Find("StateText");
+        state_text.GetComponent<UnityEngine.UI.Text>().text = str_state;
         PlayerManager[] Players = FindObjectsOfType<PlayerManager>();
         foreach (var player in Players)
         {
             player.state = new_state;
         }
-        GameObject state_text = GameObject.Find("StateText");
-        state_text.GetComponent<UnityEngine.UI.Text>().text = str_state;
+    }
+
+
+    public void SelectAttacker(int clientId)
+    {
+        RpcSelectAttacker(clientId);
+    }
+
+    [ClientRpc]
+    public void RpcSelectAttacker(int clientId)
+    {
+        GameObject Player = GameObject.Find("PlayerManager");
+        PlayerManager Playermanager = Player.GetComponent<PlayerManager>();
+        print(NetworkConnection.LocalConnectionId);
+        print(clientId);
+
+        if(NetworkConnection.LocalConnectionId == clientId)
+        {
+            print("hi");
+            Player.GetComponent<PlayerManager>().isAttacker = true;
+        } else
+        {
+            print("hi2");
+            Player.GetComponent<PlayerManager>().isAttacker = false;
+        }
     }
 
 }

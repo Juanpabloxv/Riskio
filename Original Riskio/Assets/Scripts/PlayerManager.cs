@@ -9,7 +9,7 @@ public enum TurnState { START, ATTACK, INFORMATION, DEFENSE, SCORE }
 public class PlayerManager : NetworkBehaviour
 {
 
-
+    public int playerNumber;
     public GameObject PlayerArea;
     public GameObject MainCanvas;
     public GameObject BoardArea;
@@ -18,7 +18,7 @@ public class PlayerManager : NetworkBehaviour
     public CardList hand;
     public CardList information_hand;
     public GameObject Card;
-    [SyncVar]  public bool isAttacker = false;
+    public bool isAttacker = false;
     public bool hasPlayed = false;
     public bool isGM = false;
     [SyncVar]  public TurnState state;
@@ -41,7 +41,27 @@ public class PlayerManager : NetworkBehaviour
         {
             isGM = true;
         }
-            
+        CmdSetPlayerNumber();
+    }
+
+    [Command]
+    public void CmdSetPlayerNumber()
+    {
+        var total = NetworkServer.connections.Count;
+        print(total);
+        RpcSetPlayerNumber(total);
+    }
+
+
+    [ClientRpc]
+    public void RpcSetPlayerNumber(int total)
+    {
+        print("holi 1");
+        if (playerNumber == 0)
+        {
+            playerNumber = total;
+            print("holi 2");
+        }
     }
 
     // Update is called once per frame
@@ -56,12 +76,9 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void  getPlayers(GameObject selectPlayerCanvas)
     {
-        var ids = NetworkServer.connections.Values;
-        var str = "Estos son los ids de los clientes: \n";
-        foreach(var id in ids)
-        {
-            str += "- " + id.ToString() + "\n";
-        }
+        var ids = NetworkServer.connections.Count;
+        var str = "Ingrese un valor entre 2 y " + ids;
+        
 
         GameObject attackerIds = GameObject.Find("PlayerIdsText");
         attackerIds.GetComponent<UnityEngine.UI.Text>().text = str ;
@@ -201,26 +218,32 @@ public class PlayerManager : NetworkBehaviour
 
     public void SelectAttacker(int clientId)
     {
-        RpcSelectAttacker(clientId);
+        CmdSelectAttacker(clientId);
     }
 
     [ClientRpc]
     public void RpcSelectAttacker(int clientId)
     {
-        GameObject Player = GameObject.Find("PlayerManager");
-        PlayerManager Playermanager = Player.GetComponent<PlayerManager>();
-        print(NetworkConnection.LocalConnectionId);
+        //GameObject Player = GameObject.Find("PlayerManager");
+        //PlayerManager Playermanager = Player.GetComponent<PlayerManager>();
         print(clientId);
+        print(playerNumber);
 
-        if(NetworkConnection.LocalConnectionId == clientId)
+        if(playerNumber == clientId)
         {
             print("hi");
-            Player.GetComponent<PlayerManager>().isAttacker = true;
+            isAttacker = true;
         } else
         {
             print("hi2");
-            Player.GetComponent<PlayerManager>().isAttacker = false;
+            isAttacker = false;
         }
+    }
+
+    [Command]
+    public void CmdSelectAttacker(int clientId)
+    {
+        RpcSelectAttacker(clientId);
     }
 
 }

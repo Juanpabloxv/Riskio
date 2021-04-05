@@ -9,7 +9,7 @@ public enum TurnState { START, ATTACK, INFORMATION, DEFENSE, SCORE }
 public class PlayerManager : NetworkBehaviour
 {
 
-    public int playerNumber;
+    [SyncVar] public int playerNumber;
     public GameObject PlayerArea;
     public GameObject MainCanvas;
     public GameObject BoardArea;
@@ -18,11 +18,10 @@ public class PlayerManager : NetworkBehaviour
     public CardList hand;
     public CardList information_hand;
     public GameObject Card;
-    public bool isAttacker = false;
-    public bool hasPlayed = false;
-    public bool isGM = false;
-    [SyncVar]  public TurnState state;
-    public GameObject[] Players;
+    [SyncVar] public bool isAttacker;
+    [SyncVar] public bool hasPlayed;
+    public bool isGM;
+    [SyncVar] public TurnState state;
 
 
 
@@ -35,14 +34,31 @@ public class PlayerManager : NetworkBehaviour
         MainCanvas = GameObject.Find("Main Canvas");
         BoardArea = GameObject.Find("BoardArea");
         state = TurnState.START;
+        isAttacker = false;
+        hasPlayed = false;
         GameObject selectAttacker = GameObject.Find("AttackerSelection");
         selectAttacker.GetComponent<Canvas>().enabled = false;
+        CmdSetPlayerNumber();
         if (isServer)
         {
             isGM = true;
         }
-        CmdSetPlayerNumber();
+        else
+        {
+            isGM = false;
+        }
+
     }
+
+    [Server]
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        //var numPlayers = Network
+
+    }
+
+
 
     [Command]
     public void CmdSetPlayerNumber()
@@ -86,15 +102,7 @@ public class PlayerManager : NetworkBehaviour
     }
 
 
-    [Server]
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-
-        //var numPlayers = Network
-        
-    }
-
+    
 
 
     public void DrawCard()
@@ -216,29 +224,17 @@ public class PlayerManager : NetworkBehaviour
     }
 
 
-    public void SelectAttacker(int clientId)
-    {
-        CmdSelectAttacker(clientId);
-    }
-
     [ClientRpc]
     public void RpcSelectAttacker(int clientId)
     {
-        //GameObject Player = GameObject.Find("PlayerManager");
-        //PlayerManager Playermanager = Player.GetComponent<PlayerManager>();
         print(clientId);
         print(playerNumber);
-
-        if(playerNumber == clientId)
-        {
-            print("hi");
-            isAttacker = true;
-        } else
-        {
-            print("hi2");
-            isAttacker = false;
-        }
+        GameObject okbutton = GameObject.Find("OkButton");
+        okbutton.GetComponent<SelectAttacker>().setAttacker(clientId);
+        //changeAttacker(clientId);
+       
     }
+
 
     [Command]
     public void CmdSelectAttacker(int clientId)

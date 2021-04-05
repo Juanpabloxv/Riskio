@@ -27,9 +27,26 @@ public class SelectAttacker : NetworkBehaviour
             GameObject inputField = GameObject.Find("AttackerIdInput");
             var player_id = inputField.GetComponent<UnityEngine.UI.InputField>().text;
             print(player_id);
-            PlayerManager.SelectAttacker(int.Parse(player_id));
+            PlayerManager.CmdSelectAttacker(int.Parse(player_id));
 
             gameObject.transform.parent.GetComponent<Canvas>().enabled = false;
+        }
+    }
+
+    public void setAttacker(int clientId)
+    {
+        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+        print(clientId);
+        print(PlayerManager.playerNumber);
+
+
+        if(clientId == PlayerManager.playerNumber)
+        {
+            PlayerManager.isAttacker = true;
+        } else
+        {
+            PlayerManager.isAttacker = false;
         }
     }
 }

@@ -38,6 +38,8 @@ public class PlayerManager : NetworkBehaviour
         hasPlayed = false;
         GameObject selectAttacker = GameObject.Find("AttackerSelection");
         selectAttacker.GetComponent<Canvas>().enabled = false;
+        GameObject selectAttackType = GameObject.Find("AttackTypeSelection");
+        selectAttackType.GetComponent<Canvas>().enabled = false;
         CmdSetPlayerNumber();
         if (isServer)
         {
@@ -241,5 +243,24 @@ public class PlayerManager : NetworkBehaviour
     {
         RpcSelectAttacker(clientId);
     }
+
+    [Command]
+    public void CmdSelectAttack(int attack_number)
+    {
+        int position = Random.Range(0, 12);
+        RpcSelectAttack(attack_number, position);
+    }
+
+    [ClientRpc]
+    public void RpcSelectAttack(int attack_number, int position)
+    {
+        print(attack_number);
+        print(playerNumber);
+        GameObject okbutton = GameObject.Find("OkTypeButton");
+        okbutton.GetComponent<SelectAttackType>().setAttackCard(attack_number, position);
+        //changeAttacker(clientId);
+
+    }
+
 
 }

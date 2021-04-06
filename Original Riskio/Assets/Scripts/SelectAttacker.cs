@@ -48,5 +48,12 @@ public class SelectAttacker : NetworkBehaviour
         {
             PlayerManager.isAttacker = false;
         }
+
+        if (PlayerManager.isGM)
+        {
+            GameObject selectAttackType = GameObject.Find("AttackTypeSelection");
+            selectAttackType.GetComponent<Canvas>().enabled = true;
+        }
+
     }
 }

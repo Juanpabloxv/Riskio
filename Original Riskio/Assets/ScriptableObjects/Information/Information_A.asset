@@ -16,4 +16,4 @@ MonoBehaviour:
   card_type: Information
   description: 
   number: 11
-  artwork: {fileID: 21300000, guid: 029972f060718434cbf80d1768ff4010, type: 3}
+  artwork: {fileID: 21300000, guid: a3ef6277c103419498176d24c4bfef53, type: 3}

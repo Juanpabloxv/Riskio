@@ -46,6 +46,8 @@ public class PlayerManager : NetworkBehaviour
         selectAttacker.GetComponent<Canvas>().enabled = false;
         GameObject selectAttackType = GameObject.Find("AttackTypeSelection");
         selectAttackType.GetComponent<Canvas>().enabled = false;
+        GameObject board_canvas = GameObject.Find("Office");
+        board_canvas.GetComponent<Canvas>().enabled = false;
         CmdSetPlayerNumber();
         if (isServer)
         {
@@ -85,7 +87,8 @@ public class PlayerManager : NetworkBehaviour
         {
             playerNumber = total;
             GameObject playerNumberText = GameObject.Find("PlayerNumberText");
-            playerNumberText.GetComponent<UnityEngine.UI.Text>().text = "Jugador " + total.ToString();
+            playerNumberText.GetComponent<changeText>().changePlayerNumber();
+
             //print("holi 2");
         }
     }

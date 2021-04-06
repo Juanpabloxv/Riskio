@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4970555020326785266}
   - component: {fileID: 3709748898439841788}
   - component: {fileID: 4802343469675416087}
-  - component: {fileID: -8759574636852521885}
-  - component: {fileID: -7482477630509565882}
+  - component: {fileID: 3128985860403417600}
+  - component: {fileID: -8854712433413652640}
+  - component: {fileID: 2241549129665160894}
   m_Layer: 5
   m_Name: PlayerNumberText
   m_TagString: Untagged
@@ -81,7 +82,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
---- !u!114 &-8759574636852521885
+--- !u!114 &3128985860403417600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,7 +99,7 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &-7482477630509565882
+--- !u!114 &-8854712433413652640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,3 +120,15 @@ MonoBehaviour:
   compressRotation: 0
   interpolateScale: 1
   syncScale: 1
+--- !u!114 &2241549129665160894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7119159030888643559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1666c9dbccfb39c4fa71ced1cb51d57d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

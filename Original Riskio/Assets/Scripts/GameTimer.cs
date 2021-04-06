@@ -57,7 +57,7 @@ public class GameTimer : NetworkBehaviour
                 }
             }
         }
-        gameObject.GetComponent<UnityEngine.UI.Text>().text = timer.ToString();
+        gameObject.GetComponent<UnityEngine.UI.Text>().text = timer.ToString("0.00");
     }
 
     public void StartTimer()

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e5f17d7fa34644eb12a979d2debbf9, type: 3}
+  m_Name: Repudiation_Hand
+  m_EditorClassIdentifier: 
+  card_hand:
+  - {fileID: 11400000, guid: 974de992f6e33e04f9e840fb02f80e35, type: 2}
+  - {fileID: 11400000, guid: 0cd8d15c4cd03144ab612f08bbd04461, type: 2}
+  - {fileID: 11400000, guid: 8b2b3eef33534364b8f8bd6c24aabf9f, type: 2}
+  - {fileID: 11400000, guid: c7c1576bf30392a45b4979e52b850401, type: 2}
+  - {fileID: 11400000, guid: 26ea90d7dab9d5b4798734194a21ccdd, type: 2}
+  - {fileID: 11400000, guid: f1d0561083b04b541b170b13b9743fe2, type: 2}
+  - {fileID: 11400000, guid: a158a0436fa2f2a4782583aca3bbaa06, type: 2}
+  - {fileID: 11400000, guid: 6327f00c878b617499e0463e3a6bfd51, type: 2}
+  - {fileID: 11400000, guid: fef9cce7e1483fa4b9976c8e0f5e4b27, type: 2}
+  - {fileID: 11400000, guid: 48ee1406bdb28084394a197c0bcbd54a, type: 2}
+  - {fileID: 11400000, guid: d9336a30404f21f4cbd07de899ef0623, type: 2}
+  - {fileID: 11400000, guid: eb9a14bd43b549d438631722cccd5273, type: 2}
+  - {fileID: 11400000, guid: b20a4290a1ffba7498cf0bf1843c1ea9, type: 2}

@@ -16,4 +16,4 @@ MonoBehaviour:
   card_type: Attack
   description: 
   number: 3
-  artwork: {fileID: 21300000, guid: ecd3f807b36c0824da5104688922b0bb, type: 3}
+  artwork: {fileID: 21300000, guid: 72ca4783d07db974ea2685ec3c930fa7, type: 3}

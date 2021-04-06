@@ -85,11 +85,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  playerNumber: 0
   PlayerArea: {fileID: 0}
   MainCanvas: {fileID: 0}
   BoardArea: {fileID: 0}
   playedCardPrefab: {fileID: 8660327165527195371, guid: 3c9ff5fff9c61794cb613b90b5a761bb, type: 3}
   playedCard: {fileID: 0}
   hand: {fileID: 11400000, guid: d092f68dc87695a4c8562f455c850f9e, type: 2}
+  information_hand: {fileID: 11400000, guid: 8e2f43d56a5d6f44a9fd6d09d3a27b54, type: 2}
+  dos_hand: {fileID: 11400000, guid: 9bd2440526bce1343a80b658f4df9d1f, type: 2}
+  eop_hand: {fileID: 11400000, guid: 161ebc1a31c519d48b0ad066b69de9cc, type: 2}
+  id_hand: {fileID: 11400000, guid: 4180d24de035dce479d32baaca9f53cf, type: 2}
+  rep_hand: {fileID: 11400000, guid: 1ccbed07598ff5c468b7734a63e5f50f, type: 2}
+  spoo_hand: {fileID: 11400000, guid: d9bc49d251ea2d24f9dcbccbc3ce45c4, type: 2}
+  tamp_hand: {fileID: 11400000, guid: 17239f8d7d83fc644bb13b282914ebb2, type: 2}
   Card: {fileID: 8550031627678432422, guid: 1c18c98067580c94787b4e1153577da5, type: 3}
-  enemy_cards: 0
+  isAttacker: 0
+  hasPlayed: 0
+  isGM: 0
+  state: 0

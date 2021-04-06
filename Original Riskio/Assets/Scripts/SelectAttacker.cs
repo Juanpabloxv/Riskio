@@ -37,6 +37,7 @@ public class SelectAttacker : NetworkBehaviour
     {
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         PlayerManager = networkIdentity.GetComponent<PlayerManager>();
+        GameObject playerRole = GameObject.Find("PlayerRole");
         print(clientId);
         print(PlayerManager.playerNumber);
 
@@ -44,9 +45,11 @@ public class SelectAttacker : NetworkBehaviour
         if(clientId == PlayerManager.playerNumber)
         {
             PlayerManager.isAttacker = true;
+            playerRole.GetComponent<SpriteRenderer>().color = Color.red;
         } else
         {
             PlayerManager.isAttacker = false;
+            playerRole.GetComponent<SpriteRenderer>().color = Color.green;
         }
 
         if (PlayerManager.isGM)

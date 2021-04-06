@@ -514,7 +514,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 24462c3cd8018ef42ad7f094cf83b263, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -686,8 +686,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SelectAttacker, Assembly-CSharp
+      - m_Target: {fileID: 5424777993661673297}
+        m_TargetAssemblyTypeName: SelectAttackType, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
@@ -748,6 +748,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb93c6c4f3cd5b44b87cf670100cbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  PlayerManager: {fileID: 0}
+  Card: {fileID: 8550031627678432422, guid: 1c18c98067580c94787b4e1153577da5, type: 3}
+  attack_canvas: {fileID: 0}
 --- !u!1 &4214790532194817726
 GameObject:
   m_ObjectHideFlags: 0

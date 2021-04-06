@@ -12,4 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e5f17d7fa34644eb12a979d2debbf9, type: 3}
   m_Name: Information_Hand
   m_EditorClassIdentifier: 
-  card_hand: []
+  card_hand:
+  - {fileID: 11400000, guid: 2b3f93d6b50821049955a7ae6a7b3986, type: 2}
+  - {fileID: 11400000, guid: 99dde8ddedfbe0e41ac665f5630106b4, type: 2}
+  - {fileID: 11400000, guid: 822fb978d3276bc458b1ed2244c74cd6, type: 2}
+  - {fileID: 11400000, guid: 6d9464353b615704abd5989390de0b81, type: 2}
+  - {fileID: 11400000, guid: 7d55ecf9b7b7c5b4793674045c487123, type: 2}
+  - {fileID: 11400000, guid: 194eb65446a9b3f4aacb5c24bcfb2fb7, type: 2}
+  - {fileID: 11400000, guid: 819090344454aca45b371520252a4e13, type: 2}
+  - {fileID: 11400000, guid: 27eaf71cce5da834085c78231d687eb0, type: 2}
+  - {fileID: 11400000, guid: c22727755034b7845982503d4f7a6c73, type: 2}
+  - {fileID: 11400000, guid: c69a11d0b72a8c84c854aa558f13b85f, type: 2}
+  - {fileID: 11400000, guid: 7f91404225c51b44bad60439ac9f9adb, type: 2}
+  - {fileID: 11400000, guid: 04141de3ca9ce434ba056523880a38e7, type: 2}
+  - {fileID: 11400000, guid: c3d69ebb802abc44bacf2c6ebe065f43, type: 2}

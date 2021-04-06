@@ -17,6 +17,12 @@ public class PlayerManager : NetworkBehaviour
     public GameObject playedCard;
     public CardList hand;
     public CardList information_hand;
+    public CardList dos_hand;
+    public CardList eop_hand;
+    public CardList id_hand;
+    public CardList rep_hand;
+    public CardList spoo_hand;
+    public CardList tamp_hand;
     public GameObject Card;
     [SyncVar] public bool isAttacker;
     [SyncVar] public bool hasPlayed;
@@ -78,7 +84,9 @@ public class PlayerManager : NetworkBehaviour
         if (playerNumber == 0)
         {
             playerNumber = total;
-            print("holi 2");
+            GameObject playerNumberText = GameObject.Find("PlayerNumberText");
+            playerNumberText.GetComponent<UnityEngine.UI.Text>().text = "Jugador " + total.ToString();
+            //print("holi 2");
         }
     }
 
@@ -95,7 +103,7 @@ public class PlayerManager : NetworkBehaviour
     public void  getPlayers(GameObject selectPlayerCanvas)
     {
         var ids = NetworkServer.connections.Count;
-        var str = "Ingrese un valor entre 2 y " + ids;
+        var str = "Enter the number of the player (Between 2 and " + ids.ToString() + ")";
         
 
         GameObject attackerIds = GameObject.Find("PlayerIdsText");
@@ -131,22 +139,22 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     public void RpcDrawCard(GameObject playerCard, int position)
     {
-        //if (!isGM)
-        //{
+        if (!isGM)
+        {
             playerCard.GetComponent<CardDisplay>().card = hand.card_hand[position];
             playerCard.GetComponent<CardDisplay>().pasteSprite();
             playerCard.transform.SetParent(PlayerArea.transform, false);
             PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
-            PlayerArea.GetComponent<Hand>().update_list();
-        /*} else
+           // PlayerArea.GetComponent<Hand>().update_list();
+        } else
         {
+            print(information_hand.card_hand.Count);
             playerCard.GetComponent<CardDisplay>().card = information_hand.card_hand[position];
             playerCard.GetComponent<CardDisplay>().pasteSprite();
             playerCard.transform.SetParent(PlayerArea.transform, false);
             PlayerArea.GetComponent<Hand>().showable_list.Add(playerCard);
-            PlayerArea.GetComponent<Hand>().update_list();
+           // PlayerArea.GetComponent<Hand>().update_list();
         }
-        */
 
     }
 
@@ -155,59 +163,91 @@ public class PlayerManager : NetworkBehaviour
     {
         if (!hasPlayed && !isAttacker && !isGM && state == TurnState.DEFENSE)
         {
-            CmdPlayCard(card);
+            CmdPlayCard(card, "defense");
+        } else if(!hasPlayed && !isAttacker && isGM && state == TurnState.INFORMATION){
+            CmdPlayCard(card, "information");
         }
     }
 
     [Command]
-    public void CmdPlayCard(GameObject card)
+    public void CmdPlayCard(GameObject card, string type)
     {
-        GameObject played_card = Instantiate(playedCardPrefab, new Vector2(0, 0), Quaternion.identity);
-        NetworkServer.Spawn(played_card, connectionToClient);
-        var i = 0;
-        foreach(var hand_card in hand.card_hand)
+        if (type == "defense")
         {
-            print(hand_card.number);
-            if(hand_card.number == card.GetComponent<CardDisplay>().card.number)
+            GameObject played_card = Instantiate(playedCardPrefab, new Vector2(0, 0), Quaternion.identity);
+            NetworkServer.Spawn(played_card, connectionToClient);
+            var i = 0;
+            foreach (var hand_card in hand.card_hand)
             {
-                RpcPlayCard(played_card, i);
-                break;
+                print(hand_card.number);
+                if (hand_card.number == card.GetComponent<CardDisplay>().card.number)
+                {
+                    RpcPlayCard(played_card, i, type);
+                    break;
+                }
+                i++;
             }
-            i++;
+        } else if(type == "information"){
+            GameObject played_card = Instantiate(playedCardPrefab, new Vector2(0, 0), Quaternion.identity);
+            NetworkServer.Spawn(played_card, connectionToClient);
+            var i = 0;
+            foreach (var hand_card in information_hand.card_hand)
+            {
+                print(hand_card.number);
+                if (hand_card.number == card.GetComponent<CardDisplay>().card.number)
+                {
+                    RpcPlayCard(played_card, i, type);
+                    break;
+                }
+                i++;
+            }
         }
        
     }
 
 
     [ClientRpc]
-    public void RpcPlayCard(GameObject played_card, int position)
+    public void RpcPlayCard(GameObject played_card, int position, string type)
     {
-        //played_card.GetComponent<CardDisplay>().CopyValuesFrom(card.GetComponent<CardDisplay>());
-        played_card.GetComponent<CardDisplay>().card = hand.card_hand[position];
-        played_card.GetComponent<CardDisplay>().pasteSprite();
-        played_card.transform.SetParent(BoardArea.transform, false);  //.SetParent(MainCanvas.transform, false);
-        hasPlayed = true;
+        if (type == "defense")
+        {
+            //played_card.GetComponent<CardDisplay>().CopyValuesFrom(card.GetComponent<CardDisplay>());
+            played_card.GetComponent<CardDisplay>().card = hand.card_hand[position];
+            played_card.GetComponent<CardDisplay>().pasteSprite();
+            played_card.transform.SetParent(BoardArea.transform, false);  //.SetParent(MainCanvas.transform, false);
+            hasPlayed = true;
+            RectTransform rect = played_card.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(89.88f, 153.67f);
+        }
+        else if (type == "information")
+        {
+            //played_card.GetComponent<CardDisplay>().CopyValuesFrom(card.GetComponent<CardDisplay>());
+            played_card.GetComponent<CardDisplay>().card = information_hand.card_hand[position];
+            played_card.GetComponent<CardDisplay>().pasteSprite();
+            played_card.transform.SetParent(BoardArea.transform, false);  //.SetParent(MainCanvas.transform, false);
+            hasPlayed = true;
+            RectTransform rect = played_card.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(89.88f, 153.67f);
+        }
     }
-
-
 
 
     public void ChangeTurnState(string new_state)
     {
-        if(new_state == "attack")
+        if(new_state == "attack" && (state == TurnState.START || state == TurnState.DEFENSE))
         {
-            CmdChangeTurnState(TurnState.ATTACK, new_state);
             if (isServer)
             {
                 GameObject selectAttacker = GameObject.Find("AttackerSelection");
                 selectAttacker.GetComponent<Canvas>().enabled = true;
                 getPlayers(selectAttacker);
             }
+            CmdChangeTurnState(TurnState.ATTACK, new_state);
 
-        } else if (new_state == "defense")
+        } else if (new_state == "defense" && (state == TurnState.ATTACK || state == TurnState.INFORMATION))
         {
             CmdChangeTurnState(TurnState.DEFENSE, new_state);
-        } else
+        } else if (new_state == "information" && state == TurnState.ATTACK)
         {
             CmdChangeTurnState(TurnState.INFORMATION, new_state);
         }
@@ -216,17 +256,32 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdChangeTurnState(TurnState new_state, string str_state)
     {
-        GameObject state_text = GameObject.Find("StateText");
-        state_text.GetComponent<UnityEngine.UI.Text>().text = str_state;
         PlayerManager[] Players = FindObjectsOfType<PlayerManager>();
         foreach (var player in Players)
         {
             player.state = new_state;
+            if (str_state == "attack")
+            {
+                player.hasPlayed = false;
+                GameObject board = GameObject.Find("BoardArea");
+                foreach (Transform child in board.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
         }
+        RpcChangeTurnState(str_state);
+    }
+
+    [ClientRpc]
+    public void RpcChangeTurnState(string str_state)
+    {
+        GameObject state_text = GameObject.Find("StateText");
+        state_text.GetComponent<UnityEngine.UI.Text>().text = str_state;
     }
 
 
-    [ClientRpc]
+        [ClientRpc]
     public void RpcSelectAttacker(int clientId)
     {
         print(clientId);
